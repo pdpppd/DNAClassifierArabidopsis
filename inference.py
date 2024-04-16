@@ -6,7 +6,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import numpy as np
-from datapreprocess import generate_kmer_vector
+#from datapreprocess import generate_kmer_vector
 
 # Assuming ComplexNN class definition is here (copy from the training script)
 class NN(nn.Module):
