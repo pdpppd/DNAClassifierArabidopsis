@@ -9,28 +9,30 @@ import numpy as np
 from datapreprocess import generate_kmer_vector
 
 # Assuming ComplexNN class definition is here (copy from the training script)
-class ComplexNN(nn.Module):
+class NN(nn.Module):
     def __init__(self, input_size, num_classes):
-        super(ComplexNN, self).__init__()
-        self.fc1 = nn.Linear(input_size, 1024)
-        self.fc2 = nn.Linear(1024, 512)
-        self.fc3 = nn.Linear(512, 256)
-        self.fc4 = nn.Linear(256, 128)
-        self.fc5 = nn.Linear(128, num_classes)
-    
+        super(NN, self).__init__()
+        self.fc1 = nn.Linear(input_size, 1024)  # First layer with 1024 units
+        self.fc2 = nn.Linear(1024, 2048)  # Second layer with 2048 units
+        self.fc3 = nn.Linear(2048, 1024)
+        self.fc4 = nn.Linear(1024, 512)
+        self.fc5 = nn.Linear(512, 256)
+        self.fc6 = nn.Linear(256, num_classes)
+
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
         x = F.relu(self.fc4(x))
-        x = self.fc5(x)
+        x = F.relu(self.fc5(x))
+        x = self.fc6(x)
         return x
-
+    
 def load_model(model_path):
     checkpoint = torch.load(model_path, map_location=torch.device('cpu'))  # ensure 'map_location' is set if you are switching devices
     label_encoder = checkpoint['label_encoder']
     num_classes = len(label_encoder.classes_)
-    model = ComplexNN(input_size=4096, num_classes=num_classes)
+    model = NN(input_size=768, num_classes=num_classes)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
     return model, label_encoder
