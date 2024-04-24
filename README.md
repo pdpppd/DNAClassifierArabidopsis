@@ -1,6 +1,5 @@
 # DNAClassifierArabidopsis
 **This is an Neural Network that has been trained on the Arabidopsis Genome to predict the idenitity of any DNA sequence.**
-Note: This is probably going to be inaccurate because it's only trained on the Arabidopsis Genome. 
 
 This tool is available on Google Colab: 
 [Google Colab](https://colab.research.google.com/github/pdpppd/DNAClassifierArabidopsis/blob/master/ArabidopsisDNAClassifier.ipynb)
